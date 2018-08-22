@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-do</title>
+  <style>
+    * {margin:0;padding:0;box-sizing: border-box;}
+    body,html { width:100%;height:100%; }
+    a { text-decoration: none;color:#1AE; }
+    li {list-style: none;line-height: 2}
+    .colorRed {color:#f33;}
+    .wrap {width:900px;height:600px;margin:50px auto;border:1px solid #ddd;padding-left: 20px}
+  </style>
+</head>
+<body>
+  <div id="wrap" class="wrap">
+    <my-component prop-data="我是属性数据……"></my-component>
+  </div>
+  <script type="text/javascript" src="../vue.min.js"></script>
+  <script type="text/javascript">
+    var baseOpt = {
+      template: '<div>{{extendData}}<br/>{{propData}}</div>',
+      data:function(){
+        return {
+          extendData:"我是Vue.component引入的数据."
+        }
+      },
+      props:['propData']
+    }
+    var Profile = Vue.extend(baseOpt);//创建组件构造器
+    // 以下2种方法都可以创建组件
+    Vue.component('my-component',Profile); // 传入构造器
+    //Vue.component('my-component',baseOpt); //传入配置
+    
+    //挂载到实例上
+    var vm = new Vue({el:'#wrap'})
+
+    //获取组件构造器
+    var Con = Vue.component('my-component');
+    console.log(Con === Profile) //true
+  </script>
+</body>
+</html>
