@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-do</title>
+  <style>
+    * {margin:0;padding:0;box-sizing: border-box;}
+    body,html { width:100%;height:100%; }
+    a { text-decoration: none;color:#1AE; }
+    li {list-style: none;line-height: 2}
+    .colorRed {color:#f33;}
+    .wrap {width:900px;height:600px;margin:50px auto;border:1px solid #ddd;padding-left: 20px}
+    .btn{padding:5px 10px;border-radius: 5px;background-color: #ddd;color:#fff;}
+    .btn-blue{background-color: #0e71d2}
+  </style>
+</head>
+<body>
+  <div id="wrap" class="wrap">
+    <span class="btn btn-blue" @click="getInfo">{{mixinData}}</span>
+    {{calData |placeholder}}--{{num}}
+  </div>
+  <script type="text/javascript" src="../vue.min.js"></script>
+  <script type="text/javascript">
+   var mixin_one = {
+      data:{
+        mixinData:"我是mixin_one的数据",
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "mixin_one"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("mixin_one的num改变了")
+        }
+      },
+      filters:{
+        'percent':function(val){
+          return val+"%"
+        }
+      },
+      methods:{
+        getInfo:function(){
+          console.log("我是mixin_one的方法")
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在mixin_one中创建的")
+      }
+    }
+    var mixin_two = {
+      data:{
+        mixinData:"我是mixin_two的数据",
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "mixin_two"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("mixin_two的num改变了")
+        }
+      },
+      filters:{
+        'placeholder':function(val){
+          return val.length>0?"^"+val+"^":"---"
+        }
+      },
+      methods:{
+        getInfo:function(){
+          console.log("我是mixin_two的方法")
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在mixin_two中创建的")
+      }
+    }
+
+    var vm = new Vue({
+      el: '#wrap',
+      data:{
+        mixinData: '我是实例中的数据',
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "vm"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("vm的num改变了")
+        }
+      },
+      filters:{
+        'percent':function(val){
+          return val+"%%"
+        }
+      },
+      mixins:[mixin_one,mixin_two],
+      methods:{
+        getInfo:function(){
+          console.log("我是实例的方法");
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在实例中创建的")
+      }
+    })
+  </script>
+</body>
+</html>

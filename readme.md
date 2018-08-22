@@ -68,3 +68,251 @@
     console.log(Con === Profile) //true
 ```
   可以发现，由于Vue.extend构造器是全局的。所以任何全局组件都可以通过Vue.component方法来获取器对应的构造器。
+
+### mixins
+  扩展组件功能。【可扩展多个指定组件，数组形式】
+``` javascript
+  var mixin_one = {
+      data:{
+        mixinData:"我是mixin_one的数据",
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "mixin_one"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("mixin_one的num改变了")
+        }
+      },
+      filters:{
+        'percent':function(val){
+          return val+"%"
+        }
+      },
+      methods:{
+        getInfo:function(){
+          console.log("我是mixin_one的方法")
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在mixin_one中创建的")
+      }
+    }
+    var mixin_two = {
+      data:{
+        mixinData:"我是mixin_two的数据",
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "mixin_two"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("mixin_two的num改变了")
+        }
+      },
+      filters:{
+        'placeholder':function(val){
+          return val.length>0?"^"+val+"^":"---"
+        }
+      },
+      methods:{
+        getInfo:function(){
+          console.log("我是mixin_two的方法")
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在mixin_two中创建的")
+      }
+    }
+
+    var vm = new Vue({
+      el: '#wrap',
+      data:{
+        mixinData: '我是实例中的数据',
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "vm"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("vm的num改变了")
+        }
+      },
+      filters:{
+        'percent':function(val){
+          return val+"%%"
+        }
+      },
+      mixins:[mixin_one,mixin_two],
+      methods:{
+        getInfo:function(){
+          console.log("我是实例的方法");
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在实例中创建的")
+      }
+    })
+```
+  通过运行以上代码，我们得到如下结论：
+  1、代码执行顺序为：mixin_one->mixin_two->vm实例
+  2、mixin_one、mixin_two，vm实例中的生命周期函数都会执行
+  3、子组件和父组件的watch会合并到一个数组里，父组件在前，子组件在后
+  4、像data，computed，methods，props(待定)里的属性，后边的会覆盖掉前面的，即最终执行vm的方法
+  5、像filters/components/directives等，首先会在子组件里查找，如果没有，才会沿着原型链向上，找父组件中对应的属性（相同则覆盖，不同则保留）
+
+### extends
+  扩展组件功能。【只能扩展一个指定的组件，对象或构造函数】
+``` javascript
+  var mixin = {
+      data:{
+        myData:"我是mixin的数据",
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "mixin"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("mixin的num改变了")
+        }
+      },
+      filters:{
+        'percent':function(val){
+          return val+"%"
+        }
+      },
+      methods:{
+        getInfo:function(){
+          console.log("我是mixin的方法")
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在mixin中创建的")
+      }
+    }
+    var extend = {
+      data:{
+        myData:"我是extends的数据",
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "extends"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("extends的num改变了")
+        }
+      },
+      filters:{
+        'placeholder':function(val){
+          return val.length>0?"^"+val+"^":"---"
+        }
+      },
+      methods:{
+        getInfo:function(){
+          console.log("我是extends的方法")
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在extends中创建的")
+      }
+    }
+
+    var vm = new Vue({
+      el: '#wrap',
+      data:{
+        myData: '我是实例中的数据',
+        num:0
+      },
+      computed:{
+        calData:function(){
+            return "vm"
+        }
+      },
+      watch:{
+        num:function(nv,ov){
+          console.log("vm的num改变了")
+        }
+      },
+      filters:{
+        'percent':function(val){
+          return val+"%%"
+        }
+      },
+      mixins:[mixin],
+      extends:extend,
+      methods:{
+        getInfo:function(){
+          console.log("我是实例的方法");
+          this.num++;
+        }
+      },
+      created:function(){
+        console.log("我是在实例中创建的")
+      }
+    })
+```
+  通过运行以上代码，我们得到如下结论：
+  1、代码执行顺序为：extends->mixin->vm实例
+  2、extends、mixin，vm实例中的生命周期函数都会执行
+  3、子组件和父组件的watch会合并到一个数组里，父组件在前，子组件在后
+  4、像data，computed，methods，props(待定)里的属性，后边的会覆盖掉前面的，即最终执行vm的方法
+  5、像filters/components/directives等，首先会在子组件里查找，如果没有，才会沿着原型链向上，找父组件中对应的属性（相同则覆盖，不同则保留）
+
+### components
+  在组件中，我们可以通过components属性来注册局部组件或者子组件
+``` javascript
+  var obj = {
+      template: '<div :title="title">我是子组件……</div>',
+      props:['title'],
+      created:function(){
+        console.log("子组件已经创建")
+      }
+    }
+    var Profile = Vue.extend(obj)
+    var vm = new Vue({
+      el: '#wrap',
+      components:{
+        'my-component-one':Profile,
+        'my-component-two':obj
+      },
+      created:function(){
+        console.log("实例已经创建")
+      },
+      mounted:function(){
+        console.log("实例已经完成挂载")
+      }
+    })
+```
+  通过运行以上代码，我们得到如下结论：
+  1、首先完成了父组件数据模型的创建
+  2、依次完成子组件数据模型的创建（本实例中执行了两次子组件的挂载，故输出了2次`子组件已经创建`）
+  3、父组件完成dom元素挂载
+
+### install
+  
+``` javascript
+  
+```
+  
+
+

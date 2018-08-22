@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-do</title>
+  <style>
+    * {margin:0;padding:0;box-sizing: border-box;}
+    body,html { width:100%;height:100%; }
+    a { text-decoration: none;color:#1AE; }
+    li {list-style: none;line-height: 2}
+    .colorRed {color:#f33;}
+    .wrap {width:900px;height:600px;margin:50px auto;border:1px solid #ddd;padding-left: 20px}
+  </style>
+</head>
+<body>
+  <div id="wrap" class="wrap">
+    <my-component-one title="我是题目1"></my-component-one>
+    <my-component-two title="我是题目2"></my-component—two>
+  </div>
+  <script type="text/javascript" src="../vue.min.js"></script>
+  <script type="text/javascript">
+    var obj = {
+      template: '<div :title="title">我是子组件……</div>',
+      props:['title'],
+      created:function(){
+        console.log("子组件已经创建")
+      }
+    }
+    var Profile = Vue.extend(obj)
+    var vm = new Vue({
+      el: '#wrap',
+      components:{
+        'my-component-one':Profile,
+        'my-component-two':obj
+      },
+      created:function(){
+        console.log("实例已经创建")
+      },
+      mounted:function(){
+        console.log("实例已经完成挂载")
+      }
+    })
+  </script>
+</body>
+</html>
