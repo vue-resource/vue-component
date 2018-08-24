@@ -14,6 +14,8 @@
     /*工具类*/
     .center{text-align: center;}
 
+    .line-30{line-height: 30px;}
+
     /*颜色相关*/
     .font{font-size: 14px;cursor: pointer;}
     .font-primary{color:#409EFF;}
@@ -25,6 +27,9 @@
     /*按钮相关*/
     .btn{padding:5px 10px;border-radius: 5px;background-color: #ddd;color:#fff;cursor: pointer;}
     .btn-blue{background-color: #0e71d2}
+    .btn-success{background-color: #67C23A}
+    .btn-warning{background-color: #E6A23C}
+    .btn-danger{background-color: #F56C6C}
 
     /*图标相关*/
     .icon {display: inline-block;width:20px;height: 20px;background-size: 100% 100%;background-repeat: no-repeat;background-position: center center;}
@@ -61,6 +66,9 @@
 </head>
 <body>
   <div id="wrap" class="wrap">
+    <input v-focus/>
+    <div class="line-30">{{name|placeholder}}</div>
+    <span class="btn btn-warning" @click="handleGlobal">全局方法</span>
     <span class="btn btn-blue" @click="showMsg">显示message</span>
   </div>
   <script type="text/javascript" src="../vue.min.js"></script>
@@ -79,11 +87,32 @@
      *     loading，提示框，弹框（消息提示，确认框，提交框），通知框，辅助说明框（文字提示，弹出框）
      */
     Dialog.install = function(Vue,options){
-      //在插件里你可以定义全局指令
-      
-      //在插件中你可以注入组件
-      
-      //你可以添加实例方法
+      //添加全局方法或属性
+        Vue.username = "henyulee";
+        Vue.sayHello = function(){
+          vm.$message({
+            message:"hello world!",
+            type:"success"
+          })
+        }
+
+      //添加全局资源，如：指令/过滤器/过渡等
+        Vue.directive('focus', {
+          inserted:function(el,binding){
+            var ele = el.tagName === 'INPUT' ? el : el.querySelector('input')
+            ele.focus()
+          }
+        })
+        Vue.filter('placeholder', function(value) {
+            return (value===""||value === null)?"---":value
+        });
+      //通过全局 mixin 方法添加一些组件选项，如: vue-router
+        Vue.mixin({
+          created: function () {
+            console.log("组件已经被注入……")
+          }
+        })
+      //添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现
         // 1、消息提示
         Vue.prototype.$message = function(config){
           if(!this.SMmessag){//如果没有则创建
@@ -101,6 +130,9 @@
 
     var vm = new Vue({
       el: '#wrap',
+      data:{
+        name:"LG"
+      },
       methods:{
         showMsg:function(){
           var self = this
@@ -109,6 +141,10 @@
             type:"danger",
             dangerouslyUseHTMLString:true
           })
+        },
+        handleGlobal:function(){
+          console.log(Vue.username)
+          Vue.sayHello()
         }
       }
     })
