@@ -1,0 +1,63 @@
+* {margin:0;padding:0;box-sizing: border-box;}
+body,html { width:100%;height:100%; }
+a { text-decoration: none;color:#1AE; }
+li {list-style: none;line-height: 2}
+.colorRed {color:#f33;}
+.wrap {width:900px;height:600px;margin:50px auto;border:1px solid #ddd;padding-left: 20px}
+
+/*工具类*/
+.center{text-align: center;}
+
+.line-30{line-height: 30px;}
+
+/*颜色相关*/
+.font{font-size: 14px;cursor: pointer;}
+.font-primary{color:#409EFF;}
+.font-info{color:#303133;}
+.font-success{color:#67C23A;}
+.font-warning{color:#F56C6C;}
+.font-danger{color:#409EFF;}
+
+/*按钮相关*/
+.btn{padding:5px 10px;border-radius: 5px;background-color: #ddd;color:#fff;cursor: pointer;}
+.btn-blue{background-color: #0e71d2}
+.btn-success{background-color: #67C23A}
+.btn-warning{background-color: #E6A23C}
+.btn-danger{background-color: #F56C6C}
+
+/*图标相关*/
+.icon {display: inline-block;width:20px;height: 20px;background-size: 100% 100%;background-repeat: no-repeat;background-position: center center;}
+.icon-delete{background-image: url(./image/close.png);}
+
+/*弹框样式*/
+  /*消息提示*/
+  .sm-message {
+    position: fixed;
+    top:0px;
+    left:50%;
+    z-index: 9999;
+    -webkit-transform:translate3d(-50%,0,0);
+            transform:translate3d(-50%,0,0);
+    -webkit-transition:all .3s linear;
+            transition:all .3s linear;
+    min-width: 250px;
+    padding:5px 20px;
+    color:#fff;
+    border-radius: 5px;
+    line-height: 25px;
+    opacity: 0;
+  }
+  .sm-message.sm-message-info{background-color:#303133 ;}
+  .sm-message.sm-message-primary{background-color:#409EFF ;}
+  .sm-message.sm-message-success{background-color:#67C23A;}
+  .sm-message.sm-message-danger{background-color:#F56C6C;}
+  .sm-message.sm-message-warning{background-color: #E6A23C;}
+
+  .sm-message .icon-delete{position: absolute;right:5px;top:7px;}
+  .sm-message.active{top:20px;opacity: 1;}
+
+  /*loading*/
+  .loading-box {position: fixed;left:0;top:0;width:100%;height:100%;opacity:.6;z-index: 998;background-color: #000;}
+  .loading-content{position: absolute;left:50%;top:50%;-webkit-transform:translate3d(-50%,-50%,0);transform:translate3d(-50%,-50%,0);text-align: center;min-width: 200px;}
+  .loading-animate{width:50px;height:50px;background-image: url('./image/loading.gif');background-size: 100% 100%;background-repeat: no-repeat;display: inline-block;}
+  .loading-text{color:#fff;line-height: 2;font-size:14px;text-align: center;}

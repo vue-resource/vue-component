@@ -60,4 +60,31 @@ var message_vue = {
     }
   }
 }
-
+/**
+ * 2、loading 加载
+ *   参数说明：
+ *    message:提示内容
+ */
+var message_loading = {
+  template: '<div class="loading-box" v-show="canSee" ref="loading">'
+                +'<div class="loading-content">'
+                +'    <div class="loading-animate"></div>'
+                +'    <div class="loading-text">{{text}}</div>'
+                +'</div>'
+            +'</div>',
+  data:function(){
+    return {
+      text:"努力加载中",
+      canSee:false
+    }
+  },
+  methods:{
+    show:function(text){
+      this.text = text || this.text
+      this.canSee = true
+    },
+    hide:function(){
+      this.$refs.loading.remove()
+    }
+  }
+}
