@@ -62,12 +62,15 @@ EventListener.prototype = {
     this.paintImg(item.ele,this.$lazyload.errorUrl)
   },
   addImgLoading:function(ele){
-    ele.style.background = "url("+this.$lazyload.loadUrl+") no-repeat 100% 100% center;"
+    ele.style.background = `url(${this.$lazyload.loadUrl}) no-repeat center`
   },
   removeImgLoading:function(ele){
     ele.style.background = ""
   },
   paintImg:function(ele,src){
-    ele.src = src
+    setTimeout(function(){
+      ele.src = src
+    },500)
+    // ele.src = src
   }
 }
