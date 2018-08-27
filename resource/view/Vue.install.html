@@ -48,12 +48,14 @@
         Vue.filter('placeholder', function(value) {
             return (value===""||value === null)?"---":value
         });
+
       //通过全局 mixin 方法添加一些组件选项，如: vue-router
         Vue.mixin({
           created: function () {
             console.log("组件已经被注入……")
           }
         })
+        
       //添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现
         // 1、消息提示
         Vue.prototype.$message = function(config){

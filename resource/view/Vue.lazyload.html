@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>懒加载组件</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="./common.css">
+  <style>
+    .pic-box {
+      padding:20px;
+    }
+    .pic-box img {
+      display: inline-block;
+      width:50%;
+      height:200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap" class="wrap">
+    <a href="https://segmentfault.com/a/1190000015645724" target="_blank" class="font font-primary">参考链接</a>
+    <img src="./image/lazyload.png" alt="实现原理" title="实现原理">
+    <div class="pic-box">
+      <img v-for="(img,idx) in images" v-lazyload="img"/>
+    </div>
+  </div>
+  <script type="text/javascript" src="../vue.min.js"></script>
+  <script src="./lazyload/util.js"></script>
+  <script src="./lazyload/lazyload.js"></script>
+  <script src="./lazyload/imagebox.js"></script>
+  <script src="./lazyload/mixin.js"></script>
+  <script src="./lazyload/eventlistener.js"></script>
+  <script src="./lazyload/directive.js"></script>
+  <script src="./lazyload/index.js"></script>
+</body>
+</html>
