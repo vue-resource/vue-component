@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>Vue插件</title>
   <link rel="stylesheet" href="./common.css">
+  <style>
+    .wrap{margin:100px auto;width:60%;padding:20px;}
+  </style>
 </head>
 <body>
   <div id="wrap" class="wrap">
@@ -55,7 +58,7 @@
             console.log("组件已经被注入……")
           }
         })
-        
+
       //添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现
         // 1、消息提示
         Vue.prototype.$message = function(config){
@@ -87,6 +90,7 @@
             }
           })
         }
+        // 3、tooltip 提示框
     }
 
     //引用vue插件
