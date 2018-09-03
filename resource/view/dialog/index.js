@@ -148,3 +148,68 @@ var tooltip_vue = {
     }
   }
 }
+/**
+ * 4、confirm 确认框
+ *   参数说明：
+ *     title: 确认框标题，默认："提示"
+ *     lock: 弹框弹起时，是否锁定页面滚动，默认：true
+ *     width:确认框尺寸，默认40%
+ *     showTitle:是否展示头部区域，默认：true
+ *     showClose:是否显示关闭按钮，默认:true
+ *     content:弹框内容，默认:""
+ *     dangerouslyUseHTMLString:是否解析html字符串，默认：false
+ *     align:底部按钮的对齐方式，有left,center,right3种，默认:center
+ *     slot:插槽处理
+ *       tool:头部工具插槽
+ *       foot：底部按钮区域插槽
+ *     okFn: 成功回调函数
+ *     failFn:失败回调函数
+ */
+var confirm_vue = {
+  template:'<div class="mask" v-if="visible">'
+            +'<div class="mask-bg" @click="visible=false"></div>'
+            +'<div class="confirm" ref="confirm">'
+              +'<div class="confirm-head" v-if="baseOpt.showTitle">'
+                +'<span class="confirm-title">{{baseOpt.title}}</span>'
+                +'<slot name="tool"></slot>'
+                +'<span class="icon icon-delete confirm-close" v-if="baseOpt.showClose"></span>'
+              +'</div>'
+              +'<div class="confirm-content"></div>'
+              +'<div class="confirm-foot"><slot name="foot"></slot></div>'
+            +'</div></div>',
+  data:function(){
+    var self = this;
+    return {
+      baseOpt:{
+        title:"提示",
+        lock:true,
+        width:'40%',
+        showTitle:true,
+        showClose:true,
+        content:"",
+        dangerouslyUseHTMLString:false,
+        align:"center",
+        slot:{
+          tool:"",
+          content:'<span class="btn" @click="failFn">取消</span><span class="btn btn-warning" @click="okFn">确定</span>'
+        },
+        okFn:function(){self.visible = false},
+        failFn:function(){self.visible = false}
+      },
+      visible:false
+    }
+  },
+  methods:{
+   show:function(opt){
+    var self = this
+    this.baseOpt = Object.assign(this.baseOpt,opt)
+    this.visible = true
+    this.$nextTick(function(){
+      self.renderConfirm()
+    })
+   },
+   renderConfirm:function(){
+    
+   }
+  }
+}

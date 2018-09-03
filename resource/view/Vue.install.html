@@ -16,6 +16,7 @@
     <span class="btn btn-blue" @click="showMsg">显示message</span>
     <span class="btn btn-danger" @click="showLoading">loading提示</span>
     <span class="btn btn-success" @mouseover="handleOver" @mouseout="handleOut">tip-box</span>
+    <span class="btn btn-warning" @click="showConfirm">确认框</span>
   </div>
   <script type="text/javascript" src="../vue.min.js"></script>
   <script src="./dialog/index.js"></script>
@@ -112,6 +113,16 @@
             }
           })
         }
+        // 4、confirm 确认框
+        Vue.prototype.$confirm = function(option){
+          if(!this.SMconfirm){
+            var Profile = Vue.extend(confirm_vue);
+            var confirm = new Profile().$mount();
+            Vue.prototype.SMconfirm = confirm
+            document.body.appendChild(confirm.$el)
+          }
+          this.SMconfirm.show(option)
+        }
     }
 
     //引用vue插件
@@ -137,18 +148,24 @@
         },
         showLoading:function(){
           var self = this
-          this.$loading("show","架，又他妈装逼迟到了");
+          this.$loading("show","驾，又他妈装逼迟到了");
           setTimeout(function(){
             self.$loading.close()
           },3000)
         },
         handleOver:function(e){
           this.$tip(e,{
-            content:"你说我容易吗？？又是怎样不舍得"
+            content:"你说我容易吗？怎么样都不会舍得！！",
+            place:'right'
           })
         },
         handleOut:function(e){
           this.$tip.close(e)
+        },
+        showConfirm:function(){
+          this.$confirm({
+            
+          })
         }
       }
     })
