@@ -15,6 +15,7 @@
     <span class="btn btn-warning" @click="handleGlobal">全局方法</span>
     <span class="btn btn-blue" @click="showMsg">显示message</span>
     <span class="btn btn-danger" @click="showLoading">loading提示</span>
+    <span class="btn btn-success" @mouseover="handleOver" @mouseout="handleOut">tip-box</span>
   </div>
   <script type="text/javascript" src="../vue.min.js"></script>
   <script src="./dialog/index.js"></script>
@@ -73,7 +74,7 @@
         // 2、loading 加载提示
         Vue.prototype.$loading = function(type,text){
           if(!this.SMloading){//如果没有则创建
-            var Profile = Vue.extend(message_loading);
+            var Profile = Vue.extend(loading_vue);
             var loading = new Profile().$mount();
             Vue.prototype.SMloading = loading
             document.body.appendChild(loading.$el)
@@ -91,6 +92,26 @@
           })
         }
         // 3、tooltip 提示框
+        Vue.prototype.$tip = function(event,config,_type){
+          if(!this.SMtip){
+            var Profile = Vue.extend(tooltip_vue);
+            var tip = new Profile().$mount();
+            Vue.prototype.SMtip = tip
+            event.target.classList.add('tooltip')
+            event.target.appendChild(tip.$el)
+          }
+          if(_type === 'show'|| _type===undefined || _type===""){
+            this.SMtip.show(config)
+          }else{
+            this.SMtip.hide(event)
+            this.SMtip = null
+          }
+          ['show','close'].forEach(function(type){
+            Vue.prototype.$tip[type] = function (event,_config) {
+              return Vue.prototype.$tip(event,_config,type)
+            }
+          })
+        }
     }
 
     //引用vue插件
@@ -120,6 +141,14 @@
           setTimeout(function(){
             self.$loading.close()
           },3000)
+        },
+        handleOver:function(e){
+          this.$tip(e,{
+            content:"你说我容易吗？？又是怎样不舍得"
+          })
+        },
+        handleOut:function(e){
+          this.$tip.close(e)
         }
       }
     })

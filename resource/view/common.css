@@ -65,7 +65,7 @@ li {list-style: none;line-height: 2}
 
   /*tooltip*/
   .tooltip {position:relative;}
-  .tooltip .tip-box{position: absolute;z-index: 1000;border-radius: 5px;padding:10px;background-color: #444341;color:#fff;min-width: 100px;}
+  .tooltip .tip-box{position: absolute;z-index: 1000;border-radius: 5px;padding:5px;background-color: #444341;color:#fff;min-width: 100px;max-width: 300px;width:max-content;}
   .tooltip .tip-box.tip-left {top:50%;left:0;-webkit-transform:translate3d(0,-50%,0);transform:translate3d(0,-50%,0);}
   .tooltip .tip-box.tip-top {left:50%;top:0;-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0);}
   .tooltip .tip-box.tip-right {top:50%;right:0;-webkit-transform:translate3d(0,-50%,0);transform:translate3d(0,-50%,0);}

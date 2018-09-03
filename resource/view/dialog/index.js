@@ -65,7 +65,7 @@ var message_vue = {
  *   参数说明：
  *    message:提示内容
  */
-var message_loading = {
+var loading_vue = {
   template: '<div class="loading-box" v-show="canSee" ref="loading">'
                 +'<div class="loading-content">'
                 +'    <div class="loading-animate"></div>'
@@ -85,6 +85,66 @@ var message_loading = {
     },
     hide:function(){
       this.$refs.loading.remove()
+    }
+  }
+}
+/**
+ * 3、tooltip 辅助性提示文字
+ *   参数说明：
+ *     content: 提示文案
+ *     place: 展示位置，有：left,top,right,bottom4个。默认是top
+ *     show:是否展示
+ *     delay:延时显示
+ *     theme: 提示主题
+ */
+var tooltip_vue = {
+  template:'<div class="tip-box" ref="tipbox" v-show="visible" :class="[cls,baseOpt.theme]">{{baseOpt.content}}<span class="tip-arrow"></span></div>',
+  data:function(){
+    return {
+      baseOpt:{
+        content:"",
+        place:"top",
+        delay:300,
+        theme:""
+      },
+      visible:false
+    }
+  },
+  computed:{
+    cls:function(){
+      switch(this.baseOpt.place){
+        case 'left':
+          return 'tip-left';break;
+        case 'right':
+          return 'tip-right';break;
+        case 'bottom':
+          return 'tip-bottom';break;
+        default:
+          return 'tip-top';
+      }
+    }
+  },
+  methods:{
+    show:function(config){
+      var self = this;
+      self.baseOpt = Object.assign(self.baseOpt,config)
+      self.visible = true
+      this.$nextTick(function(){
+         var size = self.$refs.tipbox.getBoundingClientRect()
+         switch(self.baseOpt.place){
+            case 'left':
+              self.$refs.tipbox.style.left = "-"+(size.width+5)+"px";break;
+            case 'right':
+              self.$refs.tipbox.style.right = "-"+(size.width+5)+"px";break;
+            case 'bottom':
+              self.$refs.tipbox.style.bottom = "-"+(size.height+5)+"px";break;
+            default:
+              self.$refs.tipbox.style.top = "-"+(size.height+5)+"px";
+         }
+      })
+    },
+    hide:function(e){
+      e.target.removeChild(this.$refs.tipbox)
     }
   }
 }
