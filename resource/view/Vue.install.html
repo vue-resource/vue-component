@@ -163,8 +163,28 @@
           this.$tip.close(e)
         },
         showConfirm:function(){
+          var self = this
           this.$confirm({
-            
+            title:"弹框提示",
+            dangerouslyUseHTMLString:true,
+            content:'<span class="font font-success">测试html</span>',
+            btns:['残忍卸载','再用用看'],
+            align:'right',
+            slot:{
+              tool:'<span class="btn btn-mini btn-success" @click="alert(22)">工具集</span>'
+            },
+            okFn:function(){
+              Vue.sayHello()
+              self.SMconfirm.visible = false
+            },
+            failFn:function(){
+              self.SMconfirm.visible = false
+            }
+          })
+        },
+        showTool:function(){
+          this.$message({
+            message:'欢迎使用弹框工具集'
           })
         }
       }

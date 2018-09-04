@@ -6,7 +6,13 @@ li {list-style: none;line-height: 2}
 .wrap {border:1px solid #ddd;padding-left: 20px}
 
 /*工具类*/
-.center{text-align: center;}
+.align-left{text-align: left;}
+.align-center{text-align: center;}
+.align-right{text-align: right;}
+
+.fixed {position: fixed;}
+.fixed-full {position: fixed;width:100%;height:100%;}
+
 .ma-t-5{margin-top: 5px;}
 
 .line-30{line-height: 30px;}
@@ -21,6 +27,7 @@ li {list-style: none;line-height: 2}
 
 /*按钮相关*/
 .btn{padding:5px 10px;border-radius: 5px;background-color: #ddd;color:#fff;cursor: pointer;}
+.btn-mini{padding:3px;}
 .btn-blue{background-color: #0e71d2}
 .btn-success{background-color: #67C23A}
 .btn-warning{background-color: #E6A23C}
@@ -84,9 +91,10 @@ li {list-style: none;line-height: 2}
 
   /*confirm*/
   .confirm {position: absolute;left:50%;top:50px;z-index: 1001;-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0);background-color: #fff;border-radius: 5px;min-width: 400px;}
-  .confirm-head {height:30px;border-bottom: 1px solid #ddd;padding:0 10px;}
+  .confirm-head {height:40px;border-bottom: 1px solid #ddd;padding:0 10px;}
   .confirm-head::after {display: block;width:0;clear:both;content:"";}
-  .confirm-head .confirm-title {line-height: 30px;font-size:14px;margin-right: 20px;}
-  .confirm-head .confirm-close{float:right;margin-top: 4px;}
+  .confirm-head .confirm-title {line-height: 40px;font-size:14px;margin-right: 20px;}
+  .confirm-head .confirm-close{float:right;margin-top: 10px;}
   .confirm-content {padding:10px 20px;}
-  .confirm-foot {height:40px;border-top: 1px solid #ddd;padding-top: 5px;}
+  .confirm-foot {height:50px;border-top: 1px solid #ddd;padding:0 20px;padding-top: 15px;}
+  .confirm-foot .btn {margin-left:20px;}
