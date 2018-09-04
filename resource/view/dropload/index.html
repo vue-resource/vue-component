@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>滑动加载</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../common.css">
+  <style>
+    .list {padding-left:20px;}
+    .list li {line-height: 35px;}
+    .list li:hover {color:pink;}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <drop-load ref="scroll" @loadmore="getData">
+        <ul class="list">
+          <li v-for="(item,idx) in list" :key="idx">{{item.label}}</li>
+        </ul>
+    </drop-load>
+  </div>
+  <script src="../../vue.min.js"></script>
+  <script src="template.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '.app',
+      data:{
+        list:[]
+      },
+      components:{
+        'drop-load':Dropload
+      },
+      methods:{
+        getData:function(){
+          var self = this
+          setTimeout(function(){
+            var end = self.list.length+30;
+            for(var i=self.list.length;i<end;i++){
+              self.list.push({label:"列表***"+(i*1+1)})
+            }
+            self.$refs.scroll.loaded()
+            if(self.list.length>260){
+              self.$refs.scroll.complete()
+            }
+          },1000)
+        }
+      },
+      mounted:function(){
+        this.getData()
+      }
+    })
+  </script>
+</body>
+</html>
