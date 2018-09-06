@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>滑动的侧边栏</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../common.css">
+  <style>
+    .menu-list{background-color: pink;}
+    .menu-list li {border-bottom: 1px solid #ddd;line-height: 40px;padding-left:10px;color:#4181dc;}
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <slide-menu>
+      <div slot="slide-menu" class="menu-list">
+        <ul>
+          <li v-for="(menu,idx) in menus">{{menu.name}}</li>
+        </ul>
+      </div>
+      <div>我是内容区域，顺着屏幕分别向左向右滑滑看看……</div>
+    </slide-menu>
+  </div>
+  <script src="../../vue.min.js"></script>
+  <script src="./template.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data:{
+        menus:[]
+      },
+      created:function(){
+        for(var i=0;i<10;i++){
+          this.menus.push({name:"菜单"+(i+1)})
+        }
+      }
+    })
+  </script>
+</body>
+</html>
