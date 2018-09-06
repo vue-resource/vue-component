@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>滑动删除</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../common.css">
+  <style>
+    .item{
+      height:50px;
+      line-height: 50px;
+      padding:0 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="app">
+    <swiper-out>
+      <swiper-out-item v-for="(item,idx) in list">
+        <div class="item">{{item.label}}</div>
+        <div slot="btns">
+          <div class="swiper-out-item-btn" style="background-color: blue;" @click="alert('hello world')">修改</div>
+          <div class="swiper-out-item-btn" @click="alert('处理删除的逻辑')">删除</div>
+        </div>
+      </swiper-out-item>
+    </swiper-out>
+  </div>
+  <script src="../../vue.min.js"></script>
+  <script src="./template.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data:{
+        list:[]
+      },
+      created:function(){
+        for(var i=0;i<10;i++){
+          this.list.push({label:"项目"+(i+1)})
+        }
+      }
+    })
+  </script>
+</body>
+</html>
