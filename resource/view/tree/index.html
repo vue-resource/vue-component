@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>树形组件</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../common.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <tree :source="tree"></tree>
+  </div>
+  <script src="../../vue.min.js"></script>
+  <script src="./template.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data:{
+        tree:[
+          {
+            name:"北京市",
+            value:100,
+            children:[
+              {
+                name:"朝阳区",
+                value:100001,
+                children:[
+                  {
+                    name:"呼家楼",
+                    value:100001001
+                  }, {
+                    name:"团结湖",
+                    value:100001002
+                  }
+                ]
+              },{
+                name:"大兴区",
+                value:100002,
+                children:[
+                  {
+                    name:"小红门",
+                    value:100002001
+                  }, {
+                    name:"旧宫",
+                    value:100002002
+                  }
+                ]
+              }
+            ]
+          },{
+            name:"河南省",
+            value:200,
+            children:[
+              {
+                name:"郑州市",
+                value:200001,
+                children:[
+                  {
+                    name:"郑东新区",
+                    value:200001001
+                  }, {
+                    name:"高新区",
+                    value:200001002
+                  }
+                ]
+              },{
+                name:"焦作市",
+                value:200002,
+                children:[
+                  {
+                    name:"山阳区",
+                    value:100002001
+                  }, {
+                    name:"武陟县",
+                    value:200002002
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    })
+  </script>
+</body>
+</html>

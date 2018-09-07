@@ -42,6 +42,13 @@ input,form,select {outline: none;border:1px solid #ccc;}
 .btn-warning{background-color: #E6A23C}
 .btn-danger{background-color: #F56C6C}
 
+/*箭头*/
+.arrow{display: inline-block;border:5px solid transparent;width:0;height:0;margin-right: 5px;}
+.arrow-down{border-top-color:#000;}
+.arrow-up{border-bottom-color:#000;}
+.arrow-left{border-right-color:#000;}
+.arrow-right{border-left-color:#000;}
+
 /*图标相关*/
 .icon {display: inline-block;width:20px;height: 20px;background-size: 100% 100%;background-repeat: no-repeat;background-position: center center;}
 .icon-delete{background-image: url(./image/close.png);}
@@ -144,3 +151,8 @@ input,form,select {outline: none;border:1px solid #ccc;}
 .pagination .page-num-box,.pagination .page-tools-box{display: inline-block;margin-right: 5px;}
 .pagination .page-tools-box select {width:60px;height:30px;margin:0 10px;text-align: center;}
 .pagination .page-tools-box .page-go {height:30px;width:50px;text-align: center;}
+
+/*树形组件*/
+.tree-wrap {padding:0 20px;}
+.tree-label {line-height: 25px;}
+.checkbox {margin-right: 5px;margin-top: 2px;}
