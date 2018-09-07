@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>gitlab分页</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../common.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <a href="https://segmentfault.com/a/1190000013973011" target="_blank">参考链接</a>
+    <pagination :page-count="15" :page-index="7" @page-change="handleChange"  @size-change="handleSizeChange" @go-page="handleGo" :show-tools="true"></pagination>
+  </div>
+  <script src="../../vue.min.js"></script>
+  <script src="./template.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      methods:{
+        handleChange:function(page){
+          alert(page)
+        },
+        handleSizeChange:function(size){
+          alert(size)
+        },
+        handleGo:function(page){
+          alert(page)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
