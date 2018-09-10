@@ -2,8 +2,8 @@ var tree = {
   template: '<div class="tree-wrap">'
               +'<div class="trunk" v-for="(item,idx) in source">'
                 +'<div class="tree-label">'
-                  +'<span class="arrow arrow-right"></span>'
-                  +'<span class="checkbox" v-if="showCheckbox"><input type="checkbox" /></span>'
+                  +'<span class="arrow" :class="arrowCls"></span>'
+                  +'<span class="checkbox" v-if="showCheckbox"><input type="checkbox"/></span>'
                   +'<span class="label">{{item[_config.label]}}</span>'
                 +'</div>'
                 +'<div class="sub-tree" v-if="item[_config.children] && item[_config.children].length>0">'
@@ -30,7 +30,7 @@ var tree = {
     },
     expand:{
       type:String,
-      default:"none" //有 none,all,first  分别对应：全部折叠，全部展开，只展开第一层级
+      default:"none" //有 none,all  分别对应：全部折叠，全部展开
     }
   },
   data:function(){
@@ -45,6 +45,9 @@ var tree = {
   computed:{
     _config:function(){
       return Object.assign(this.defaultConfig,this.config)
+    },
+    arrowCls:function(){
+      return ""
     }
   },
   methods:{

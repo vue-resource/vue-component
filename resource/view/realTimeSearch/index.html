@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>下拉模糊实时查询</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../common.css">
+  <style>
+    .test-box{display: inline-block;width:300px;margin-top: 50px;margin-left:50px;}
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <div class="test-box">
+       <real-time-search url="./data.json" :stress="true" @change="supplierId=''" @select="supplierId = $event"></real-time-search>
+    </div>
+  </div>
+  <script src="../../vue.min.js"></script>
+  <script src="../../ajax.js"></script>
+  <script src="./template.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data:{
+        source:[
+          {name:'淘宝',value:100},
+          {name:'天猫',value:200},
+          {name:'京东',value:300},
+          {name:'必要',value:400}
+        ],
+        supplierId:""
+      },
+      watch:{
+        supplierId:function(vl){console.log(vl)}
+      }
+    })
+  </script>
+</body>
+</html>
